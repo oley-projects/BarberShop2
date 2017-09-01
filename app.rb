@@ -17,6 +17,7 @@ end
 before do
 	@barbers = Barber.all
 	@clients = Client.all
+	@contacts = Contact.all
 end
 
 get '/' do
@@ -47,9 +48,9 @@ end
 post '/contacts' do
 	@mailname = params[:mailname]
 	@email = params[:email]
-	@text = params[:text]
-	
+	@content = params[:content]
 
-	@message = "<h3>Thank you, #{@mailname}, your message sent successfully</h3>"
-	erb 'message'
+	Contact.create :mailname => @mailname, :email => @email, :content => @content
+	
+	erb "<h3>Thank you, #{@mailname}, your message sent successfully</h3>"
 end
