@@ -39,3 +39,17 @@ post '/visit' do
 
 	erb "<h3>Thank you, #{@username}</h3>"
 end
+
+get '/contacts' do
+	erb :contacts
+end
+
+post '/contacts' do
+	@mailname = params[:mailname]
+	@email = params[:email]
+	@text = params[:text]
+	
+
+	@message = "<h3>Thank you, #{@mailname}, your message sent successfully</h3>"
+	erb 'message'
+end
