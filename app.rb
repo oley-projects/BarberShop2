@@ -58,3 +58,7 @@ post '/contacts' do
 	
 	erb "<h3>Thank you, #{@mailname}, your message sent successfully</h3>"
 end
+
+get '/barber-:id' do
+	erb :barber
+end
