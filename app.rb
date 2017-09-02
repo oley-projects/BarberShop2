@@ -6,6 +6,11 @@ require 'sinatra/activerecord'
 set :database, "sqlite3:barbershop.db"
 
 class Client < ActiveRecord::Base
+	validates :name, presence: true
+	validates :phone, presence: true
+	validates :datestamp, presence: true
+	validates :barber, presence: true
+	validates :color, presence: true
 end
 
 class Barber < ActiveRecord::Base
@@ -16,8 +21,8 @@ end
 
 before do
 	@barbers = Barber.all
-	@clients = Client.all
-	@contacts = Contact.all
+	#@clients = Client.all
+	#@contacts = Contact.all
 end
 
 get '/' do
@@ -30,15 +35,12 @@ get '/visit' do
 end
 
 post '/visit' do
-	@username = params[:username]
-	@phone = params[:phone]
-	@datetime = params[:datetime]
-	@barber = params[:barber]
-	@color = params[:color]
-
-	Client.create :name => @username, :phone => @phone, :datestamp => @datetime, :barber => @barber, :color => @color
-
-	erb "<h3>Thank you, #{@username}</h3>"
+	c = Client.new params[:client]
+	if c.save
+		erb "<h3>Thank you</h3>"
+	else
+		erb "Error"
+	end
 end
 
 get '/contacts' do
